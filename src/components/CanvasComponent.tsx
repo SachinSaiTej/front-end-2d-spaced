@@ -22,8 +22,8 @@ export default function CanvasComponent({ draw, width, height }: CanvasComponent
             if(context){
                 frameCount++;
                 if(users[1]){
-                    users[1].x = users[1].x >= width ? 0 : users[1].x++;
-                    users[1].y = users[1].y >= height ? 0 : users[1].y++;
+                    users[1].x = users[1].x >= width ? 0 : users[1].x+1;
+                    users[1].y = users[1].y >= height ? 0 : users[1].y+1;
                     draw(context, frameCount);
                 }
             }

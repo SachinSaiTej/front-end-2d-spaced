@@ -13,6 +13,7 @@ function App() {
     addUser({ id: '2', x: 200, y: 200, color: 'Green' });
 
     const handleKeyDown = (event: KeyboardEvent) =>{
+      event.preventDefault();
       const speed = 10;
       switch(event.key){
         case 'ArrowUp':

@@ -8,10 +8,10 @@ const drawCanvas = (
     users: { id: string; x: number; y: number; color: string }[]
   ) => {
     // Clear the canvas
-    ctx.save();
-    ctx.fillStyle = "#ffffff";
+    // ctx.save();
+    ctx.fillStyle = "#000000";
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-    ctx.restore();
+    // ctx.restore();
   
     // Draw each user
     users.forEach((user) => {
