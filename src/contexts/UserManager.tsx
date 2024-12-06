@@ -1,4 +1,6 @@
 import { createContext, useState, useContext, useCallback } from 'react';
+import { Furniture } from '../types';
+import { isCollision, isUserCollision } from '../utility/utility';
 
 interface User {
   id: string;
@@ -11,7 +13,7 @@ interface UserManagerContextType {
   users: User[];
   addUser: (user: User) => void;
   removeUser: (id: string) => void;
-  moveUser: (id: string, x: number, y: number) => void;
+  moveUser: (id: string, x: number, y: number, furniture: Furniture[]) => void;
 }
 
 const UserManagerContext = createContext<UserManagerContextType | null>(null);
@@ -34,32 +36,40 @@ export const UserManagerProvider = ({ children }: any) => {
   );
 
   const moveUser = useCallback(
-    (id: string, dx: number, dy: number) =>
-      // setUsers((prev) =>
-      //   prev.map((user) =>
-      //     user.id === id ? { ...user, x: user.x + dx, y: user.y + dy } : user
-      //   )
-      // ),
+    (id: string, dx: number, dy: number, furniture: Furniture[]) =>
       setUsers((prev) =>
         prev.map((user) => {
+          // if (user.id === id) {
+          //   const newX = Math.max(0, Math.min(800, user.x + dx));
+          //   const newY = Math.max(0, Math.min(600, user.y + dy));
+          //   return { ...user, x: newX, y: newY };
+          // }
+          // return user;
           if (user.id === id) {
-            const newX = Math.max(0, Math.min(800, user.x + dx));
-            const newY = Math.max(0, Math.min(600, user.y + dy));
-            return { ...user, x: newX, y: newY };
+            const userRadius = 10; // Assuming users are circular
+            const proposedX = Math.max(0, Math.min(800, user.x + dx));
+            const proposedY = Math.max(0, Math.min(600, user.y + dy));
+  
+            // Check for collisions with furniture
+            const hasFurnitureCollision = furniture.some((item) =>
+              isCollision(proposedX, proposedY, userRadius, item)
+            );
+
+            // Check for collisions with other users
+            const hasUserCollision = prev.some(
+              (otherUser) =>
+                otherUser.id !== id && // Exclude the current user
+                isUserCollision(proposedX, proposedY, userRadius, otherUser.x, otherUser.y, 10)
+            );
+  
+            // Only update position if no collision
+            if (!hasFurnitureCollision && !hasUserCollision) {
+              return { ...user, x: proposedX, y: proposedY };
+            }
           }
           return user;
         })
       ),
-    // setUsers((prev) =>
-    //     prev.map((user) => {
-    //       if (user.id === id) {
-    //         const newX = Math.max(0, Math.min(800, user.x + dx));
-    //         const newY = Math.max(0, Math.min(600, user.y + dy));
-    //         return { ...user, x: newX, y: newY };
-    //       }
-    //       return user;
-    //     }));
-
     []
   );
 
