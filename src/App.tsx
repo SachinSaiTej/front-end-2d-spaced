@@ -15,9 +15,9 @@ function App() {
   ];
 
   useEffect(()=>{
-    addUser({ id: '1', x: 100, y: 100, color: 'Red' });
-    addUser({ id: '2', x: 200, y: 200, color: 'Green' });
-    addUser({ id: '3', x: 250, y: 250, color: 'Black' });
+    addUser({ id: '1', x: 100, y: 100, color: 'Red', character:'./src/assets/userAvatar.png' });
+    addUser({ id: '2', x: 200, y: 200, color: 'Green', character:'https://mdn.github.io/shared-assets/images/examples/rhino.jpg' });
+    addUser({ id: '3', x: 250, y: 250, color: 'Black', character:'./src/assets/userAvatar.png' });
 
     // const furnitureObjects: Furniture[] = [
     //   { id: 'desk1', type: 'desk', x: 100, y: 150, width: 100, height: 60, color: '#8B4513' }, // Brown desk
@@ -62,6 +62,7 @@ function App() {
     <>
       <div>
         {/* Hi {count} */}
+        <img src="./src/assets/userAvatar.png"></img>
         <CanvasWithUsers furnitureObjects={furnitureObjects}/>
       </div>
       {/* <CanvasComponent draw={draw} width={400} height={400}/> */}

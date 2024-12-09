@@ -7,6 +7,7 @@ interface User {
   x: number;
   y: number;
   color: string;
+  character: string;
 }
 
 interface UserManagerContextType {
@@ -59,12 +60,15 @@ export const UserManagerProvider = ({ children }: any) => {
             const hasUserCollision = prev.some(
               (otherUser) =>
                 otherUser.id !== id && // Exclude the current user
-                isUserCollision(proposedX, proposedY, userRadius, otherUser.x, otherUser.y, 10)
+                isUserCollision(proposedX - 20, proposedY - 20, 40, 40, otherUser.x - 20, otherUser.y - 20, 40, 40)
             );
   
             // Only update position if no collision
             if (!hasFurnitureCollision && !hasUserCollision) {
+              console.log("No Collision");
               return { ...user, x: proposedX, y: proposedY };
+            } else {
+              console.log("Collision Occured");
             }
           }
           return user;
