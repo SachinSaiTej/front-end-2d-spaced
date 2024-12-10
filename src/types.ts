@@ -7,3 +7,13 @@ export interface Furniture {
     height: number;
     color: string; // Optional for customization
 }
+
+export interface User {
+    id: string;
+    x: number;
+    y: number;
+    color: string;
+    character: string;
+    direction: string;
+    movementState: string;
+}
