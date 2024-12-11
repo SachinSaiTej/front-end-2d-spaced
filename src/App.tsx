@@ -110,6 +110,15 @@ function App() {
         <img src="/assets/AvatarImages/south-facing-still.png"></img>
       </div>
       <CanvasWithUsers furnitureObjects={furnitureObjects} />
+      <div style={{display: "flex", justifyContent:"center", gap: "1em"}}>
+      <button onClick={() => moveUser("1", -10, 0, furnitureObjects, "west")}>{'<'}</button>
+        <div style={{display: "flex", justifyContent:"space-between", flexDirection:"column", gap: "1em"}}>
+        <button onClick={() => moveUser("1", 0, -10, furnitureObjects, "north")}>{'^'}</button>
+          <button onClick={() => moveUser("1", 0, 10, furnitureObjects, "south")}>{'v'}</button>
+        </div>
+        <button onClick={() => moveUser("1", 10, 0, furnitureObjects, "east")}>{'>'}</button>
+      </div>
+
       {/* <CanvasComponent draw={draw} width={400} height={400}/> */}
     </div>
   );

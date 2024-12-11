@@ -39,13 +39,22 @@ export const UserManagerProvider = ({ children }: any) => {
       setUsers((prev) =>
         prev.map((user) => {
           if (user.id === id) {
-            const userRadius = 10; // Assuming users are circular
+            // const userRadius = 10;
             const proposedX = Math.max(0, Math.min(800, user.x + dx));
             const proposedY = Math.max(0, Math.min(600, user.y + dy));
 
             // Check for collisions with furniture
             const hasFurnitureCollision = furniture.some((item) =>
-              isCollision(proposedX, proposedY, userRadius, item)
+              // isCollision(proposedX-20, proposedY-20, 40, 40, item)
+              isUserCollision(
+                proposedX - 20,
+                proposedY - 20,
+                40,
+                40,
+                item.x,
+                item.y,
+                item.width,
+                item.height)
             );
 
             // Check for collisions with other users

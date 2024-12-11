@@ -3,14 +3,19 @@ import { Furniture } from "../types";
 export const isCollision = (
     userX: number,
     userY: number,
-    userRadius: number,
+    width: number,
+    height: number,
     furniture: Furniture
 ): boolean => {
     return (
-        userX + userRadius > furniture.x &&
-        userX - userRadius < furniture.x + furniture.width &&
-        userY + userRadius > furniture.y &&
-        userY - userRadius < furniture.y + furniture.height
+        userX + width > furniture.x &&
+        userX - width < furniture.x + furniture.width - 20 &&
+        userY + height > furniture.y &&
+        userY - height < furniture.y + furniture.height -20
+        // userX < furniture.width - 20 &&
+        // userX + width > furniture.x - 20 &&
+        // userY < furniture.height - 20 &&
+        // userY + height > furniture.y - 20
     );
 }
 
